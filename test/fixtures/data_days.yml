@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 2015-06-04
+  which-day: MyString
+  in: 2015-06-04 18:28:33
+  out: 2015-06-04 18:28:33
+  fixed: 2015-06-04 18:28:33
+  shift: 2015-06-04 18:28:33
+  shift-mid: 2015-06-04 18:28:33
+  off-type: MyString
+  overtime: 2015-06-04 18:28:33
+  overtime-mid: 2015-06-04 18:28:33
+  use-substitute: 2015-06-04 18:28:33
+  use-transfer: 2015-06-04 18:28:33
+  substitute: 2015-06-04 18:28:33
+  substitute-mid: 2015-06-04 18:28:33
+  transfer: 2015-06-04 18:28:33
+  transfer-mid: 2015-06-04 18:28:33
+  overtime-sum: 2015-06-04 18:28:33
+  absence: 2015-06-04 18:28:33
+  comment: MyText
+
+two:
+  day: 2015-06-04
+  which-day: MyString
+  in: 2015-06-04 18:28:33
+  out: 2015-06-04 18:28:33
+  fixed: 2015-06-04 18:28:33
+  shift: 2015-06-04 18:28:33
+  shift-mid: 2015-06-04 18:28:33
+  off-type: MyString
+  overtime: 2015-06-04 18:28:33
+  overtime-mid: 2015-06-04 18:28:33
+  use-substitute: 2015-06-04 18:28:33
+  use-transfer: 2015-06-04 18:28:33
+  substitute: 2015-06-04 18:28:33
+  substitute-mid: 2015-06-04 18:28:33
+  transfer: 2015-06-04 18:28:33
+  transfer-mid: 2015-06-04 18:28:33
+  overtime-sum: 2015-06-04 18:28:33
+  absence: 2015-06-04 18:28:33
+  comment: MyText
