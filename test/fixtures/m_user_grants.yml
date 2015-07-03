@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  grant_id: 1
+  created_at: 2015-06-25 14:35:29
+  updated_at: 2015-06-25 14:35:29
+  report_rd: false
+  report_rw: false
+  management_rd: false
+  management_rw: MyString
+  system_rd: MyString
+  system_rw: MyString
+
+two:
+  grant_id: 1
+  created_at: 2015-06-25 14:35:29
+  updated_at: 2015-06-25 14:35:29
+  report_rd: false
+  report_rw: false
+  management_rd: false
+  management_rw: MyString
+  system_rd: MyString
+  system_rw: MyString
