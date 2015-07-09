@@ -12,47 +12,110 @@
 		ws_rails = new WebSocketRails('192.168.33.10:3000/websocket');
 
 		window.onload = function() {
-  			var request;
-  			request = {
-    			'mode': 'get',
-   				'targetObject': 'MonthData',
-    			'userId': 1
-  			};
-  			ws_rails.trigger('websocket_report', request);
+  		var request;
+  		request = {
+    		'mode': 'get',
+   			'targetObject': 'MonthData',
+    		'userId': 1
+  		};
+  		ws_rails.trigger('websocket_report', request);
 		};
 
 		ws_rails.bind('websocket_report', function(response) {
-      console.log(response)
-  			var container, data, hot;
-  			data = [[
-  				response.date,
-  				response.day_of_week,
-  				response.arrive_time,
-  				response.leave_time,
-  				response.predetermined_time,
-  				response.shift_work,
-  				response.shift_work_mid,
-  				response.take_off_type_id,
-  				response.overtime_work,
-  				response.overtime_work_mid,
-  				response.use_substitute,
-  				response.use_compensatory,
-  				response.get_substitute,
-  				response.get_substitute_mid,
-  				response.all_overtime,
-  				response.take_off_type_id,
-  				response.comment
-  			]];
-        console.log(response)
-  			container = document.getElementById('example');
- 			hot = new Handsontable(container, {
-    			data: response,
-   				minSpareRows: 0,
-    			rowHeaders: false,
-    			colHeaders: ['日付', '曜日', '出社時間', '退社時間', '所定時間', '変則深夜外', '変則深夜', '休暇区分', '残業深夜外'],
-    			contextMenu: true,
-    			fixedColumnsLeft: 2
-  			});
+      function saturday(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        //TODO 定数はどこかにまとめる
+        td.style.color = 'blue';
+        td.style.background = '#9AC';
+      }
+      function sunday(instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        //TODO 定数はどこかにまとめる
+        td.style.color = 'red';
+        td.style.background = '#CA9';
+      }
+      function takeOff(instance, td, row, col, prop, value, cellProperties) {
+        //TODO 休暇区分を選択したら行の色を変えたい
+      }
+  		var container, data, hot;
+      var header = [
+        //TODO 定数はどこかにまとめる
+        //TODO validationを行いたい
+        '日付',
+        '曜日',
+        '出社時間',
+        '退社時間',
+        '所定時間',
+        '変則深夜外',
+        '変則深夜',
+        '休暇区分',
+        '残業深夜外',
+        '残業深夜',
+        '代休取得',
+        '振休取得',
+        '代勤',
+        '代勤深夜',
+        '振勤',
+        '振勤深夜',
+        '総所定外勤務',
+        '欠勤時間',
+        'コメント/備考'
+      ]
+      var takeOffType = ['', '祝日', '有半休', '有全休', '特別', '振休', '振勤', '病欠', '欠勤'];
+      var columns = [
+        {},
+        {},
+        {},
+        {},
+        {},
+          {},
+          {},
+          {
+            editor: 'select',
+            //TODO 定数はどこかにまとめる
+            selectOptions: takeOffType
+          },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {}
+        ];
+      var cellFunction = function (row, col, prop) {
+          var cellProperties = {};
+          if (col === 0 || col === 1) {
+            cellProperties.readOnly = true
+          }
+          //TODO 曜日はEnumにしたい
+          if (this.instance.getData()[row][1] === '土' && col < 2) {
+            cellProperties.renderer = saturday;
+          }
+          //TODO 曜日はEnumにしたい
+          if (this.instance.getData()[row][1] === '日' && col < 2) {
+            cellProperties.renderer = sunday;
+          }
+          return cellProperties;
+        };
+      var i;
+      for (i=1; i<=12; i++) {
+        var container = document.getElementById('container' + i.toString(10));
+        new Handsontable(container, {
+          data: response[i],
+          minSpareRows: 0,
+          rowHeaders: false,
+          colHeaders: header,
+          columns: columns,
+          cells: cellFunction,
+          contextMenu: true,
+          fixedColumnsLeft: 2
+        });
+      }
 		});
 	</script>
 	<script>
@@ -70,10 +133,28 @@
 			<li><a href="#t-1">4月</a></li>
 			<li><a href="#t-2">5月</a></li>
 			<li><a href="#t-3">6月</a></li>
+      <li><a href="#t-4">7月</a></li>
+      <li><a href="#t-5">8月</a></li>
+      <li><a href="#t-6">9月</a></li>
+      <li><a href="#t-7">10月</a></li>
+      <li><a href="#t-8">11月</a></li>
+      <li><a href="#t-9">12月</a></li>
+      <li><a href="#t-10">1月</a></li>
+      <li><a href="#t-11">2月</a></li>
+      <li><a href="#t-12">3月</a></li>
 		</ul>
-		<div id="t-1"><div id="example"></div></div>
-		<div id="t-2"><div id="exampleGrid" class="dataTable"></div></div>
-		<div id="t-3">aaaaaa</div>
+		<div id="t-1"><div id="container4"></div></div>
+		<div id="t-2"><div id="container5"></div></div>
+		<div id="t-3"><div id="container6"></div></div>
+    <div id="t-4"><div id="container7"></div></div>
+    <div id="t-5"><div id="container8"></div></div>
+    <div id="t-6"><div id="container9"></div></div>
+    <div id="t-7"><div id="container10"></div></div>
+    <div id="t-8"><div id="container11"></div></div>
+    <div id="t-9"><div id="container12"></div></div>
+    <div id="t-10"><div id="container1"></div></div>
+    <div id="t-11"><div id="container2"></div></div>
+    <div id="t-12"><div id="container3"></div></div>
 	</div>
 
 </body>

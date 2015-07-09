@@ -2,10 +2,10 @@ require 'date'
 
 
 class TDailyReport < ActiveRecord::Base
-  def setDummyData(date)
+  def setDummyData(date, wday)
     result = TDailyReport.new()
     result.date = date
-    result.day_of_week = 'THU'
+    result.day_of_week = wday
     result.arrive_time = '09:00:00'
     result.leave_time = '18:00:00'
     result.predetermined_time = '08:00:00'
@@ -21,13 +21,13 @@ class TDailyReport < ActiveRecord::Base
     result.get_compensatory = '00:00:00'
     result.get_compensatory_mid = '00:00:00'
     result.all_overtime = '00:00:00'
-    result.take_off = false
+    result.take_off = '00:00:00'
     result.comment = 'test'
     return result
   end
 
   def getDummyData(date, wday)
-    dummy = setDummyData(date)
+    dummy = setDummyData(date, wday)
     util = Utils::CommonUtility.new
     return util.fixParameters('TDailyReport', 'DailyReportDto', dummy)
   end

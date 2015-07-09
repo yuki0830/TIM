@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20150625053618) do
     t.time     "get_compensatory"
     t.string   "get_compensatory_mid"
     t.time     "all_overtime"
-    t.boolean  "take_off"
+    t.time     "take_off"
     t.text     "comment"
   end
 
